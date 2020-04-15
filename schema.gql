@@ -1,0 +1,147 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type TagType {
+  id: ID!
+  name: String!
+  icon: String
+  description: String
+  topicCount: Int!
+  displayOrder: Int!
+  isShowIcon: Boolean!
+}
+
+type UserType {
+  id: ID!
+  account: String!
+  username: String!
+  avatar: String!
+  location: String!
+}
+
+type PaginationType {
+  currentPage: Int!
+  itemsPerPage: Int!
+  totalPages: Int!
+  totalItems: Int!
+}
+
+type TopicPostType {
+  id: ID!
+  content: String!
+  likeCount: Int!
+}
+
+type TopicType {
+  id: ID!
+  title: String!
+  summary: String
+  top: Boolean!
+  good: Boolean!
+  locked: Boolean!
+  visitCount: Int!
+  replyCount: Int!
+  collectCount: Int!
+  type: Int!
+  createdAt: Date!
+  tagId: Float!
+  tag: TagType!
+  userId: Float!
+  user: UserType!
+  lastReplyUser: UserType
+}
+
+"""Date custom scalar type"""
+scalar Date
+
+type PagedTopicsType {
+  results: [TopicType!]!
+  paging: PaginationType!
+}
+
+type Query {
+  topic(id: Float!): TopicType!
+  topics(page: Int = 1, limit: Int = 10, filter: TopicsArgsFilterInputType): [TopicType!]!
+  pagedTopics(page: Int = 1, limit: Int = 10, filter: TopicsArgsFilterInputType): PagedTopicsType!
+  tags: [TagType!]!
+  tag(id: String!): TagType!
+  users: [UserType!]!
+
+  """需要登录"""
+  user(filter: UserArgsFilterInputType): UserType!
+  posts(topicId: Float!): [TopicPostType!]!
+  links: [TagType!]!
+  link(id: String!): TagType!
+}
+
+input TopicsArgsFilterInputType {
+  tab: String
+  nodeId: String
+  userId: String
+}
+
+input UserArgsFilterInputType {
+  id: Float
+  account: String
+  email: String
+}
+
+type Mutation {
+  addTopic(newTopicData: NewTopicData!): Boolean!
+  updateTopic(updatingTopicData: UpdatingTopicData!, id: String!): Boolean!
+  removeTopic(id: String!): Boolean!
+  addTag(newTagData: NewTagData!): Boolean!
+  updateTag(updatingTagData: UpdatingTagData!, id: String!): Boolean!
+  addUser(newUserData: NewUserData!): Boolean!
+  updateUser(updatingUserData: UpdatingUserData!, id: String!): Boolean!
+  removeUser(id: String!): Boolean!
+  addLink(newTagData: NewTagData!): Boolean!
+  updateLink(updatingTagData: UpdatingTagData!, id: String!): Boolean!
+}
+
+input NewTopicData {
+  title: String!
+  summary: String
+  tagId: Float!
+  userId: Float!
+  lastReplyUserId: Float!
+  lastReplyAt: String!
+}
+
+input UpdatingTopicData {
+  title: String
+  summary: String
+  tagId: Float
+  userId: Float
+  lastReplyUserId: Float
+  lastReplyAt: String
+}
+
+input NewTagData {
+  name: String!
+  icon: String
+  description: String!
+  displayOrder: Float!
+  isShowIcon: Boolean!
+}
+
+input UpdatingTagData {
+  name: String
+  icon: String
+  description: String
+  displayOrder: Float
+  isShowIcon: Boolean
+}
+
+input NewUserData {
+  account: String
+  email: String!
+  password: String!
+}
+
+input UpdatingUserData {
+  username: String
+  avatar: String
+  location: String
+}
