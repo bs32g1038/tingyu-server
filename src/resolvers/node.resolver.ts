@@ -35,4 +35,9 @@ export class NodeResolver {
         await this.nodeService.updateById(id, updatingTagData);
         return true;
     }
+
+    @Mutation(() => Boolean)
+    async removeTopic(@Args('id', { type: () => String }) id: number) {
+        return this.nodeService.deleteById(id);
+    }
 }

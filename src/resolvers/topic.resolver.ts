@@ -10,6 +10,7 @@ import {
     UpdatingTopicData,
 } from '@src/graphql-types';
 import { TopicService, NodeService, UserService } from '@src/services';
+import { isEmpty } from 'lodash';
 
 @Resolver(() => TopicType)
 export class TopicResolver {
@@ -48,6 +49,16 @@ export class TopicResolver {
     async user(@Parent() topic: TopicType) {
         const { userId } = topic;
         return await this.userService.findOneById(userId);
+    }
+
+    @ResolveField(() => [UserType])
+    async lastReplyUser(@Parent() topic: TopicType) {
+        const { lastReplyUserId } = topic;
+        console.log(isEmpty(lastReplyUserId), await this.userService.findOneById(lastReplyUserId));
+        if (!lastReplyUserId) {
+            return null;
+        }
+        return await this.userService.findOneById(lastReplyUserId);
     }
 
     @Mutation(() => Boolean)

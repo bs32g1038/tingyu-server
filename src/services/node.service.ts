@@ -28,4 +28,12 @@ export class NodeService {
     async updateById(id, data) {
         return this.TAG_REPOSITORY.update(data, { where: { id } });
     }
+
+    async deleteById(id: number) {
+        return await this.TAG_REPOSITORY.destroy({
+            where: {
+                id,
+            },
+        });
+    }
 }

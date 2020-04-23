@@ -27,12 +27,6 @@ type PaginationType {
   totalItems: Int!
 }
 
-type TopicPostType {
-  id: ID!
-  content: String!
-  likeCount: Int!
-}
-
 type TopicType {
   id: ID!
   title: String!
@@ -45,10 +39,13 @@ type TopicType {
   collectCount: Int!
   type: Int!
   createdAt: Date!
+  updatedAt: Date!
   tagId: Float!
   tag: TagType!
   userId: Float!
   user: UserType!
+  lastRepliedAt: Date
+  lastReplyUserId: Float
   lastReplyUser: UserType
 }
 
@@ -57,6 +54,18 @@ scalar Date
 
 type PagedTopicsType {
   results: [TopicType!]!
+  paging: PaginationType!
+}
+
+type TopicPostType {
+  id: Int!
+  content: String!
+  likeCount: Int!
+  createdAt: Date!
+}
+
+type PagedTopicPostType {
+  results: [TopicPostType!]!
   paging: PaginationType!
 }
 
@@ -70,14 +79,14 @@ type Query {
 
   """需要登录"""
   user(filter: UserArgsFilterInputType): UserType!
-  posts(topicId: Float!): [TopicPostType!]!
+  pagedTopicPosts(page: Int = 1, limit: Int = 10, filter: TopicsPostArgsFilterInputType): PagedTopicPostType!
   links: [TagType!]!
   link(id: String!): TagType!
 }
 
 input TopicsArgsFilterInputType {
   tab: String
-  nodeId: String
+  tagId: String
   userId: String
 }
 
@@ -85,6 +94,10 @@ input UserArgsFilterInputType {
   id: Float
   account: String
   email: String
+}
+
+input TopicsPostArgsFilterInputType {
+  topicId: String
 }
 
 type Mutation {

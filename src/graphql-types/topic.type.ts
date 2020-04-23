@@ -9,7 +9,7 @@ export class TopicsArgsFilterInputType {
     tab: string;
 
     @Field({ nullable: true })
-    nodeId: string;
+    tagId: string;
 
     @Field({ nullable: true })
     userId: string;
@@ -19,18 +19,6 @@ export class TopicsArgsFilterInputType {
 export class TopicsArgs extends PaginationArgsType {
     @Field({ nullable: true })
     filter: TopicsArgsFilterInputType;
-}
-
-@ObjectType()
-export class TopicPostType {
-    @Field(() => ID)
-    id: number;
-
-    @Field()
-    content: string;
-
-    @Field(() => Int)
-    likeCount: number;
 }
 
 @ObjectType()
@@ -69,6 +57,9 @@ export class TopicType {
     createdAt: Date;
 
     @Field()
+    updatedAt: Date;
+
+    @Field()
     tagId: number;
 
     @Field()
@@ -79,6 +70,12 @@ export class TopicType {
 
     @Field()
     user: UserType;
+
+    @Field({ nullable: true })
+    lastRepliedAt: Date;
+
+    @Field({ nullable: true })
+    lastReplyUserId?: number;
 
     @Field({ nullable: true })
     lastReplyUser?: UserType;

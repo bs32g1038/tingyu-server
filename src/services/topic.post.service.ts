@@ -1,19 +1,35 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { DB_MODEL_TOKEN_TOPIC_POST } from '@src/common/constants';
 import { TopicPost } from '@src/models';
-import Sequelize from 'sequelize';
+import { TopicPostArgsType } from '@src/graphql-types';
+import { paging } from '@src/utils/model.extend.method.util';
 
 @Injectable()
 export class TopicPostService {
     constructor(@Inject(DB_MODEL_TOKEN_TOPIC_POST) private readonly TOPIC_POST_REPOSITORY: typeof TopicPost) {}
 
-    async findListByTopicId(topicId: number) {
-        return await this.TOPIC_POST_REPOSITORY.findAll({
-            where: {
-                topicId: {
-                    [Sequelize.Op.eq]: topicId,
-                },
-            },
+    async findAndCountAll(args: TopicPostArgsType) {
+        const offset = (args.page - 1) * 20;
+        let where = {};
+        if (args.filter) {
+            const { topicId } = args.filter;
+            if (topicId) {
+                where = { ...where, topicId };
+            }
+        }
+        console.log(
+            await paging<TopicPost>(this.TOPIC_POST_REPOSITORY, {
+                where,
+                order: [['createdAt', 'DESC']],
+                limit: args.limit,
+                offset,
+            })
+        );
+        return await paging<TopicPost>(this.TOPIC_POST_REPOSITORY, {
+            where,
+            order: [['createdAt', 'DESC']],
+            limit: args.limit,
+            offset,
         });
     }
 }

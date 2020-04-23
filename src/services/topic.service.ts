@@ -34,7 +34,7 @@ export class TopicService {
         const offset = (topicsArgs.page - 1) * 20;
         let where = {};
         if (topicsArgs.filter) {
-            const { tab, userId, nodeId } = topicsArgs.filter;
+            const { tab, userId, tagId } = topicsArgs.filter;
             if (!tab || tab === 'all') {
                 where = {};
             } else if (tab === 'popular') {
@@ -42,8 +42,8 @@ export class TopicService {
             } else {
                 where = { type: TYPE[tab] };
             }
-            if (nodeId) {
-                where = { ...where, nodeId };
+            if (tagId) {
+                where = { ...where, tagId };
             }
             if (userId) {
                 where = { ...where, userId };
