@@ -1,5 +1,6 @@
 import { Field, Int, ObjectType, ArgsType, InputType } from '@nestjs/graphql';
 import { PaginationArgsType, PaginationType } from './pagination.type';
+import { UserType } from './user.type';
 
 @InputType()
 export class TopicsPostArgsFilterInputType {
@@ -23,6 +24,15 @@ export class TopicPostType {
 
     @Field(() => Int)
     likeCount: number;
+
+    @Field(() => Int)
+    commentCount: number;
+
+    @Field()
+    userId: number;
+
+    @Field()
+    user: UserType;
 
     @Field()
     createdAt: Date;

@@ -17,14 +17,6 @@ export class TopicPostService {
                 where = { ...where, topicId };
             }
         }
-        console.log(
-            await paging<TopicPost>(this.TOPIC_POST_REPOSITORY, {
-                where,
-                order: [['createdAt', 'DESC']],
-                limit: args.limit,
-                offset,
-            })
-        );
         return await paging<TopicPost>(this.TOPIC_POST_REPOSITORY, {
             where,
             order: [['createdAt', 'DESC']],

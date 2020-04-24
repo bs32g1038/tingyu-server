@@ -18,6 +18,7 @@ type UserType {
   username: String!
   avatar: String!
   location: String!
+  signature: String!
 }
 
 type PaginationType {
@@ -61,6 +62,9 @@ type TopicPostType {
   id: Int!
   content: String!
   likeCount: Int!
+  commentCount: Int!
+  userId: Float!
+  user: UserType!
   createdAt: Date!
 }
 
@@ -70,7 +74,7 @@ type PagedTopicPostType {
 }
 
 type Query {
-  topic(id: Float!): TopicType!
+  topic(id: String!): TopicType!
   topics(page: Int = 1, limit: Int = 10, filter: TopicsArgsFilterInputType): [TopicType!]!
   pagedTopics(page: Int = 1, limit: Int = 10, filter: TopicsArgsFilterInputType): PagedTopicsType!
   tags: [TagType!]!

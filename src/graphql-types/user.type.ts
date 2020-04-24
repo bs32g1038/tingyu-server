@@ -34,6 +34,9 @@ export class UserType {
 
     @Field()
     location: string;
+
+    @Field()
+    signature: string;
 }
 
 @InputType()

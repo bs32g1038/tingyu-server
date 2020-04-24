@@ -27,4 +27,8 @@ export class TopicPost extends Model<TopicPost> {
     @Default(0)
     @Column({ comment: '点赞数量' })
     likeCount: number;
+
+    @Default(0)
+    @Column({ comment: '评论数量' })
+    commentCount: number;
 }

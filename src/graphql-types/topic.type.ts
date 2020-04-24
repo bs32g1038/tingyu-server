@@ -24,7 +24,7 @@ export class TopicsArgs extends PaginationArgsType {
 @ObjectType()
 export class TopicType {
     @Field(() => ID)
-    id: number;
+    id: string;
 
     @Field()
     title: string;
