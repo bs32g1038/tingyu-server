@@ -102,13 +102,13 @@ export class NewTopicData {
     tagId: number;
 
     @Field()
-    userId: number;
+    userId?: number;
 
-    @Field()
-    lastReplyUserId?: number;
+    // @Field()
+    // lastReplyUserId?: number;
 
-    @Field()
-    lastReplyAt?: string;
+    // @Field()
+    // lastReplyAt?: string;
 }
 
 @InputType()

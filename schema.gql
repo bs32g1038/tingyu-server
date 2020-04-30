@@ -63,6 +63,7 @@ type TopicPostType {
   content: String!
   likeCount: Int!
   commentCount: Int!
+  topicId: Float!
   userId: Float!
   user: UserType!
   createdAt: Date!
@@ -74,7 +75,7 @@ type PagedTopicPostType {
 }
 
 type Query {
-  topic(id: String!): TopicType!
+  topic(id: Int!): TopicType!
   topics(page: Int = 1, limit: Int = 10, filter: TopicsArgsFilterInputType): [TopicType!]!
   pagedTopics(page: Int = 1, limit: Int = 10, filter: TopicsArgsFilterInputType): PagedTopicsType!
   tags: [TagType!]!
@@ -101,7 +102,7 @@ input UserArgsFilterInputType {
 }
 
 input TopicsPostArgsFilterInputType {
-  topicId: String
+  topicId: Int
 }
 
 type Mutation {
@@ -122,8 +123,6 @@ input NewTopicData {
   summary: String
   tagId: Float!
   userId: Float!
-  lastReplyUserId: Float!
-  lastReplyAt: String!
 }
 
 input UpdatingTopicData {

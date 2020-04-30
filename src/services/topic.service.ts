@@ -81,7 +81,10 @@ export class TopicService {
     }
 
     async create(data) {
-        return await this.TOPIC_POST_REPOSITORY.create(data);
+        return await this.TOPIC_POST_REPOSITORY.create({
+            ...data,
+            lastReplyUserId: data.userId,
+        });
     }
 
     async updateById(id, data) {

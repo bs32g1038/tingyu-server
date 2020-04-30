@@ -18,7 +18,6 @@ export class UserResolver {
     @Query(() => UserType, { description: '需要登录' })
     @UseGuards(GqlAuthGuard)
     async user(@CurrentUser() test: UserType, @Args() args: UserArgs) {
-        console.log(test);
         let user = null;
         const { id, account, email } = args.filter;
         if (_.isNumber(id)) {

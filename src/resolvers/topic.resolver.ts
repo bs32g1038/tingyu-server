@@ -1,5 +1,5 @@
 import { NotFoundException } from '@nestjs/common';
-import { Args, Query, Resolver, ResolveField, Parent, Mutation } from '@nestjs/graphql';
+import { Args, Query, Resolver, ResolveField, Parent, Mutation, Int } from '@nestjs/graphql';
 import {
     TopicType,
     PagedTopicsType,
@@ -20,7 +20,7 @@ export class TopicResolver {
     ) {}
 
     @Query(() => TopicType)
-    async topic(@Args('id', { type: () => String }) id: number) {
+    async topic(@Args('id', { type: () => Int }) id: number) {
         const topic = await this.topicService.findOneById(id);
         if (!topic) {
             throw new NotFoundException(id);

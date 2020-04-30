@@ -4,8 +4,8 @@ import { UserType } from './user.type';
 
 @InputType()
 export class TopicsPostArgsFilterInputType {
-    @Field({ nullable: true })
-    topicId: string;
+    @Field(() => Int, { nullable: true })
+    topicId: number;
 }
 
 @ArgsType()
@@ -27,6 +27,9 @@ export class TopicPostType {
 
     @Field(() => Int)
     commentCount: number;
+
+    @Field()
+    topicId: number;
 
     @Field()
     userId: number;

@@ -63,6 +63,7 @@ export class UserService {
 
     async register(email: string, password: string) {
         const user = {
+            avatar: '',
             username: email.split('@')[0],
             account: email,
             email,
@@ -70,33 +71,6 @@ export class UserService {
         };
         return this.create(user);
     }
-
-    async login(email: string, password: string) {
-        return this.USER_REPOSITORY.findOne({
-            where: {
-                email: {
-                    [Sequelize.Op.eq]: email,
-                },
-                password: {
-                    [Sequelize.Op.eq]: password,
-                },
-            },
-        });
-    }
-
-    // async login(email, password) {
-    //     const { app } = this;
-    //     return app.model.User.findOne({
-    //         where: {
-    //             email: {
-    //                 [app.Sequelize.Op.eq]: email,
-    //             },
-    //             password: {
-    //                 [app.Sequelize.Op.eq]: password,
-    //             },
-    //         },
-    //     });
-    // }
 
     // async getActiveUserList(followUserId = null) {
     //     const { app, ctx } = this;

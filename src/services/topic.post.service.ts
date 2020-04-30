@@ -9,7 +9,7 @@ export class TopicPostService {
     constructor(@Inject(DB_MODEL_TOKEN_TOPIC_POST) private readonly TOPIC_POST_REPOSITORY: typeof TopicPost) {}
 
     async findAndCountAll(args: TopicPostArgsType) {
-        const offset = (args.page - 1) * 20;
+        const offset = (args.page - 1) * args.limit;
         let where = {};
         if (args.filter) {
             const { topicId } = args.filter;

@@ -7,8 +7,8 @@ import { isEmpty } from 'lodash';
 export class AuthService {
     constructor(private userService: UserService, private jwtService: JwtService) {}
 
-    async validateUser(account: string, password: string): Promise<any> {
-        const user = await this.userService.findOneByAccount(account);
+    async validateUser(email: string, password: string): Promise<any> {
+        const user = await this.userService.findOneByEmail(email);
         if (user && user.password === password) {
             return user;
         }
@@ -16,11 +16,11 @@ export class AuthService {
     }
 
     async login(data: any) {
-        const user = await this.validateUser(data.account, data.password);
+        const user = await this.validateUser(data.email, data.password);
         if (isEmpty(user)) {
-            throw new BadRequestException('account or password error!');
+            throw new BadRequestException('email or password error!');
         }
-        const payload = { account: user.account, sub: user.id };
+        const payload = { email: user.email, sub: user.id };
         return {
             token: this.jwtService.sign(payload),
         };
